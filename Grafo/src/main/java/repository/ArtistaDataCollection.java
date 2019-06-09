@@ -54,6 +54,20 @@ public class ArtistaDataCollection {
 		
 		return nRequisitados;
 	}
+	public List<Artista> verNaoRequisitadosSemPrimeiro(){
+		List<Artista> nRequisitados = new ArrayList();
+		ArtistaTree requests = this.requisicoes();
+		int cont=0;
+		
+		for(ArtistaData item : listArtistaData) {
+			if(cont>85) {
+				item.verNaoRequisitadosNode(requests, nRequisitados);
+			}
+			cont++;
+		}
+		
+		return nRequisitados;
+	}
 	public void gerarVertices(Graph<String, DefaultEdge> grafo){
 		int percent=0;
 		int cont=0;
@@ -63,13 +77,16 @@ public class ArtistaDataCollection {
 		
 		
 		for(Artista item : artistas) {
-			cont++;
-			grafo.addVertex(item.name);
-			if((cont%(artistas.size()/10))==0) {
-				percent++;
-				System.out.println("Adicionados:"+percent+"0%");
+			if(!grafo.containsVertex(item.name)) {
+				cont++;
+				grafo.addVertex(item.name);
+				if((cont%(artistas.size()/10))==0) {
+					percent++;
+					System.out.println("Adicionados:"+percent+"0%");
+				}
 			}
-		}		
+		}
+		System.out.println(cont);
 	}
 	public void gerarArestas(Graph<String, DefaultEdge> grafo) {
 		for(ArtistaData artista : listArtistaData) {

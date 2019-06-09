@@ -19,21 +19,29 @@ public class Grafo {
 		graph = new SimpleGraph(DefaultEdge.class);
 		ArtistaDataCollection collection = new ArtistaDataCollection();
 		
+		System.out.println(graph);
+		
 		collection.gerarVertices(graph);
 		
 		collection.gerarArestas(graph);
 	}
 	
-	public void menorCaminho(String artista1, String artista2) {
-		ClusteringCoefficient dijkstra = new ClusteringCoefficient(graph);
+	public double menorCaminho(String artista1, String artista2) throws Exception {
+		if(!graph.containsVertex(artista1)) {
+			throw new Exception(artista1+" não consta em nossa base de dados");
+		}
+		if(!graph.containsVertex(artista2)) {
+			throw new Exception(artista2+" não consta em nossa base de dados");
+		}
+		DijkstraShortestPath dijkstra = new DijkstraShortestPath(graph);
 		
-		double path = dijkstra.getVertexScore(artista2);
+		GraphPath path = dijkstra.getPath(artista1, artista2);
 		
-		System.out.println(path);
-		                 
-	
+		return path.getLength();
 		
-		
+	}
+	public boolean verticeExiste(String artista) {
+		return this.graph.containsVertex(artista);
 	}
 	
 }

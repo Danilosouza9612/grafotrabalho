@@ -1,8 +1,12 @@
 package repository;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.text.DecimalFormat;
 import java.util.List;
@@ -24,13 +28,13 @@ public class GerarDataSet {
 		String contString = new DecimalFormat("0000").format(cont);
 		File file = new File("datasets\\dataset"+contString+".json");
 		BufferedWriter bWriter;
-		FileWriter writer;
+		Writer writer;
 		
 		if(!file.exists()) {
 			file.createNewFile();
 		}
 		
-		writer = new FileWriter(file);
+	    writer = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_16);
 		bWriter = new BufferedWriter(writer);
 		
 		bWriter.write(jsonContent);
@@ -48,7 +52,7 @@ public class GerarDataSet {
 		Artista[] artistas;
 		int cont=1;
 		
-		if(JsonArtista.cont<180 && interacoes<this.interacoesMaximas) {
+		if(JsonArtista.cont<200 && interacoes<this.interacoesMaximas) {
 			artistas = this.artistas.getSimilares(artista, "ba44ff677696c0b89159d566ed476981");
 			if(artistas!=null) {
 				for(Artista item : artistas) {
@@ -72,14 +76,13 @@ public class GerarDataSet {
 		SecureRandom random = new SecureRandom();
 		int r;
 		
-		System.out.println(artista.pegarArvore().getQtdArtistas());
 
-		/*JsonArtista.tabelaArtistas = artista.requisicoes();
+		JsonArtista.tabelaArtistas = artista.requisicoes();
 		
-		List<Artista> nRequisitados = artista.verNaoRequisitados();
+		List<Artista> nRequisitados = artista.verNaoRequisitadosSemPrimeiro();
 						
 		
-		for(int i=160; i<200; i++) {
+		for(int i=171; i<271; i++) {
 			JsonArtista.cont=0;
 			r=random.nextInt(nRequisitados.size());
 			if(r<nRequisitados.size()) {
@@ -98,6 +101,6 @@ public class GerarDataSet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}*/
+		}
 	}
 }

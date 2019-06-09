@@ -47,7 +47,7 @@ public class JsonArtista {
 		List<Artist> artistObj=null;
 		Artista[] artistas;
 		
-		if(!tabelaArtistas.busca(artista) && this.cont<=180) {
+		if(!tabelaArtistas.busca(artista) && this.cont<=200) {
 			cont++;
 			System.out.println(cont+":"+artista);
 			

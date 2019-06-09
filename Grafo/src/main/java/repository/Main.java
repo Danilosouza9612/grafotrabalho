@@ -3,7 +3,7 @@ import java.io.IOException;
 
 public class Main {
 	public static void main(String[] args) throws IOException {
-		GerarDataSet gerarDataset = new GerarDataSet(8);
+		GerarDataSet gerarDataset = new GerarDataSet(24);
 		
 		gerarDataset.gerarJson("Madonna");
 		

@@ -49,7 +49,7 @@ public class TestarJson {
 		BufferedReader bReader=null;
 		try {
 	        try {
-				bReader = new BufferedReader(new InputStreamReader(new FileInputStream("datasets\\"+arquivo), "UTF-8"));
+				bReader = new BufferedReader(new InputStreamReader(new FileInputStream("datasets\\"+arquivo), "UTF-16"));
 			} catch (UnsupportedEncodingException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
