@@ -1,46 +1,57 @@
 package main;
 
 import grafo.Grafo;
+import recomendacoes.Recomendacoes;
+
+import java.util.List;
 import java.util.Scanner;
 public class Main {
-	public static void main(String[] args) throws Exception {
-		Grafo grafo = new Grafo();
+	public static void main(String[] args) {
+		Recomendacoes recomendacoes = new Recomendacoes();
 		Scanner  l = new Scanner(System.in);
-		String artista1, artista2;
-
-		System.out.println("Digite o nome do primeiro artista:");
-		artista1=l.nextLine();
+		String artista;
+		int opcao;
+		List<String> recomendado;
 		
-		while(!grafo.verticeExiste(artista1)) {
-			System.out.println("Artista não encontrado");
-			System.out.println("Digite o nome do primeiro artista:");
-			artista1=l.nextLine();
-		}
-		System.out.println("Digite o nome do segundo artista:");
-		artista2=l.nextLine();
-		
-		while(!grafo.verticeExiste(artista2)) {
-			System.out.println("Artista não encontrado");
-			System.out.println("Digite o nome do segundo artista:");
-			artista2=l.nextLine();
-		}
-		
-		double semelhanca = grafo.menorCaminho(artista1, artista2);
-		System.out.println(semelhanca);
-		
-		if(semelhanca==1) {
-			System.out.println(artista1 + " e "+artista2+" são extremamente semelhantes");
-		}else if(semelhanca==2) {
-			System.out.println(artista1 + " e "+artista2+" são muito semelhantes");			
-		}else if(semelhanca==3) {
-			System.out.println(artista1 + " e "+artista2+" são mediamente semelhantes");						
-		}else if(semelhanca==4) {
-			System.out.println(artista1 + " e "+artista2+" são pouco semelhantes");						
-		}else if(semelhanca==5) {
-			System.out.println(artista1 + " e "+artista2+" são muito pouco semelhantes");
-		}else {
-			System.out.println(artista1 + " e "+artista2+" não são semelhantes");						
-		}
+		do {
+			System.out.println("1 - Inserir Artista");
+			System.out.println("2 - Ver Matriz de Semelhanças");
+			System.out.println("3 - Ver Recomendações");
+			System.out.println("4 - Sair");
+			System.out.println("Escolha uma opção:");
+			opcao=l.nextInt();
+			l.nextLine();
+			
+			switch(opcao) {
+			case 1:
+				do {
+					System.out.println("Digite o nome de algum artista(-1 para voltar)");
+					artista = l.nextLine();
+					if(artista.equals("-1")) {
+						break;
+					}
+					try {
+						recomendacoes.adicionarArtista(artista);
+					} catch (Exception e) {
+						System.err.println(e.getMessage());
+					}
+				}while(true);
+				break;
+			case 2:
+				recomendacoes.verMatriz();
+				break;
+			case 3:
+				recomendado = recomendacoes.listarRecomendacoes();
+				for(String item : recomendado) {
+					System.out.println(item);
+				}
+				break;
+			case 4:
+				break;
+			default:
+				System.out.println("Opção Inválida");
+			}
+		}while(opcao!=4);
 
 	}
 }

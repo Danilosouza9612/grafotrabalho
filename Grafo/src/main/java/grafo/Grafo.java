@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.jgrapht.Graph;
 import org.jgrapht.GraphPath;
+import org.jgrapht.Graphs;
 import org.jgrapht.alg.scoring.ClusteringCoefficient;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 import org.jgrapht.graph.DefaultEdge;
@@ -42,6 +43,9 @@ public class Grafo {
 	}
 	public boolean verticeExiste(String artista) {
 		return this.graph.containsVertex(artista);
+	}
+	public List<String> listaVizinhos(String artista){
+		return Graphs.neighborListOf(graph, artista);
 	}
 	
 }
