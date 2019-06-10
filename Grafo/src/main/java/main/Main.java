@@ -14,7 +14,7 @@ public class Main {
 		List<String> recomendado;
 		
 		do {
-			System.out.println("1 - Inserir Artista");
+			System.out.println("1 - Consultar Artista");
 			System.out.println("2 - Ver Matriz de Semelhanças");
 			System.out.println("3 - Ver Recomendações");
 			System.out.println("4 - Sair");

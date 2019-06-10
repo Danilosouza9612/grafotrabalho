@@ -17,8 +17,8 @@ public class Recomendacoes {
 	private final Grafo grafo;
 	
 	public Recomendacoes() {
-		this.artistas = new String[10];
-		this.semelhancas = new double[10][10];
+		this.artistas = new String[20];
+		this.semelhancas = new double[20][20];
 		grafo = new Grafo();
 		for(int i=0; i<10; i++) {
 			for(int j=0; j<10; j++) {
@@ -40,7 +40,6 @@ public class Recomendacoes {
 			
 			for(int i=0; i<this.cont; i++) {
 				if(i!=pos) {
-					System.out.println("Entrou");
 					try {
 						menorcaminho=grafo.menorCaminho(artista, artistas[i]);
 					}catch(Exception e) {
@@ -59,12 +58,11 @@ public class Recomendacoes {
 	}
 	private void increasePos() {
 		pos++;
-		if(pos==10) {
+		if(pos==semelhancas.length) {
 			pos=0;
 		}
 	}
 	private void increaseCont() {
-		System.out.println(cont);
 		if(cont<9) {
 			cont++;
 		}
