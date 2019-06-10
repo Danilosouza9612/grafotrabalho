@@ -2,8 +2,11 @@ package recomendacoes;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -17,8 +20,8 @@ public class Recomendacoes {
 	private final Grafo grafo;
 	
 	public Recomendacoes() {
-		this.artistas = new String[20];
-		this.semelhancas = new double[20][20];
+		this.artistas = new String[10];
+		this.semelhancas = new double[10][10];
 		grafo = new Grafo();
 		for(int i=0; i<10; i++) {
 			for(int j=0; j<10; j++) {
@@ -35,6 +38,7 @@ public class Recomendacoes {
 		
 		
 		if(grafo.verticeExiste(artista)) {
+			System.out.println(pos);
 			artistas[pos] = artista;
 			this.increaseCont();
 			
@@ -50,7 +54,6 @@ public class Recomendacoes {
 					semelhancas[i][pos]=menorcaminho;
 				}
 			}
-			
 			this.increasePos();
 		}else {
 			throw new Exception("Artista não encontrado");
@@ -109,6 +112,20 @@ public class Recomendacoes {
 			}
 		}
 		
+		Collections.sort(conjuntosVertices, new Comparator<List<String>>() {
+
+			public int compare(List<String> o1, List<String> o2) {
+				if(o1.size()==o2.size()) {
+					return 0;
+				}
+				if(o1.size()>o2.size()) {
+					return -1;
+				}
+				return 1;
+			}
+			
+		});
+		
 		return conjuntosVertices;
 	}
 	public void verConjuntos() {
@@ -124,6 +141,7 @@ public class Recomendacoes {
 		List<List<String>> conjunts = this.gerarConjuntoDeVertices();
 		List<String> recomendacoes = new LinkedList();
 		List<String> vizinhos;
+		String noSelecionado;
 		
 		for(List<String> i : conjunts) {
 			System.out.println(i);
@@ -131,12 +149,17 @@ public class Recomendacoes {
 		
 		for(List<String> conjunto : conjunts) {
 			if(conjunto.size()>1) {
-				for(int i=0; i<3 && i<conjunto.size(); i++) {
-					vizinhos = grafo.listaVizinhos(conjunto.get(i));
-					recomendacoes.add(vizinhos.get(random.nextInt(vizinhos.size()-1)));
-					cont++;
-					if(cont>20) {
-						return recomendacoes;
+				for(int i=0; i<conjunto.size(); i++) {
+					for(int j=0; j<conjunto.size(); j++) {
+						vizinhos = grafo.listaVizinhos(conjunto.get(i));
+						noSelecionado = vizinhos.get(random.nextInt(vizinhos.size()-1));
+						if(!recomendacoes.contains(noSelecionado)) {
+							recomendacoes.add(noSelecionado);
+							cont++;
+							if(cont>20) {
+								return recomendacoes;
+							}
+						}
 					}
 				}
 			}

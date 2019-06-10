@@ -17,9 +17,7 @@ public class Grafo {
 	public Grafo() {
 		graph = new SimpleGraph(DefaultEdge.class);
 		ArtistaDataCollection collection = new ArtistaDataCollection();
-		
-		System.out.println(graph);
-		
+				
 		collection.gerarVertices(graph);
 		
 		collection.gerarArestas(graph);

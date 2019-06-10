@@ -86,7 +86,6 @@ public class ArtistaDataCollection {
 				}
 			}
 		}
-		System.out.println(cont);
 	}
 	public void gerarArestas(Graph<String, DefaultEdge> grafo) {
 		for(ArtistaData artista : listArtistaData) {

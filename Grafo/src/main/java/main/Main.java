@@ -15,9 +15,8 @@ public class Main {
 		
 		do {
 			System.out.println("1 - Consultar Artista");
-			System.out.println("2 - Ver Matriz de Semelhanças");
-			System.out.println("3 - Ver Recomendações");
-			System.out.println("4 - Sair");
+			System.out.println("2 - Ver Recomendações");
+			System.out.println("3 - Sair");
 			System.out.println("Escolha uma opção:");
 			opcao=l.nextInt();
 			l.nextLine();
@@ -32,26 +31,24 @@ public class Main {
 					}
 					try {
 						recomendacoes.adicionarArtista(artista);
+						System.out.println("Consta em nossa base de dados");
 					} catch (Exception e) {
 						System.err.println(e.getMessage());
 					}
 				}while(true);
 				break;
 			case 2:
-				recomendacoes.verMatriz();
-				break;
-			case 3:
 				recomendado = recomendacoes.listarRecomendacoes();
 				for(String item : recomendado) {
 					System.out.println(item);
 				}
 				break;
-			case 4:
+			case 3:
 				break;
 			default:
 				System.out.println("Opção Inválida");
 			}
-		}while(opcao!=4);
+		}while(opcao!=3);
 
 	}
 }
