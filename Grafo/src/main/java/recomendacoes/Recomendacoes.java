@@ -35,19 +35,20 @@ public class Recomendacoes {
 	}
 	public void adicionarArtista(String artista) throws Exception {
 		double menorcaminho;
+		boolean existe = grafo.verticeExiste(artista);
 		
 		
-		if(grafo.verticeExiste(artista)) {
-			System.out.println(pos);
-			artistas[pos] = artista;
+		if(existe && !this.artistaCache(artista)) {
 			this.increaseCont();
+			artistas[pos] = artista;
+			
 			
 			for(int i=0; i<this.cont; i++) {
+				System.out.println("Entrou");
 				if(i!=pos) {
 					try {
 						menorcaminho=grafo.menorCaminho(artista, artistas[i]);
 					}catch(Exception e) {
-						System.out.println(e.getMessage());
 						return;
 					}
 					semelhancas[pos][i]=menorcaminho;
@@ -55,18 +56,18 @@ public class Recomendacoes {
 				}
 			}
 			this.increasePos();
-		}else {
+		}else if(!existe) {
 			throw new Exception("Artista não encontrado");
 		}
 	}
 	private void increasePos() {
 		pos++;
-		if(pos==semelhancas.length) {
+		if(pos>=semelhancas.length) {
 			pos=0;
 		}
 	}
 	private void increaseCont() {
-		if(cont<9) {
+		if(cont<10) {
 			cont++;
 		}
 	}
@@ -95,16 +96,16 @@ public class Recomendacoes {
 			if(listaConsultas.contains(i)) {
 				set = new ArrayList();
 				set.add(artistas[i]);
-				listaConsultas.remove((Integer)i);
 				
 				for(int j=0; j<cont; j++) {
 					if(listaConsultas.size()==0) {
 						break;
 					}
 					
-					if(listaConsultas.contains(j) && semelhancas[i][j]<=3) {
-						set.add(artistas[j]);
-						listaConsultas.remove((Integer)j);
+					if(j!=i) {
+						if(listaConsultas.contains(j) && semelhancas[i][j]<=3) {
+							set.add(artistas[j]);
+						}
 					}
 				}
 				
@@ -143,17 +144,17 @@ public class Recomendacoes {
 		List<String> vizinhos;
 		String noSelecionado;
 		
-		for(List<String> i : conjunts) {
+		/*for(List<String> i : conjunts) {
 			System.out.println(i);
-		}
+		}*/
 		
 		for(List<String> conjunto : conjunts) {
 			if(conjunto.size()>1) {
 				for(int i=0; i<conjunto.size(); i++) {
-					for(int j=0; j<conjunto.size(); j++) {
-						vizinhos = grafo.listaVizinhos(conjunto.get(i));
+					vizinhos = grafo.listaVizinhos(conjunto.get(i));
+					if(vizinhos.size()>0) {
 						noSelecionado = vizinhos.get(random.nextInt(vizinhos.size()-1));
-						if(!recomendacoes.contains(noSelecionado)) {
+						if(!recomendacoes.contains(noSelecionado) && !this.artistaCache(noSelecionado)) {
 							recomendacoes.add(noSelecionado);
 							cont++;
 							if(cont>20) {
@@ -167,5 +168,15 @@ public class Recomendacoes {
 		
 		return recomendacoes;
 	}
-	
+	private boolean artistaCache(String artista) {
+		for(String item : this.artistas) {
+			if(item==null) {
+				return false;
+			}
+			if(item.equals(artista)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
