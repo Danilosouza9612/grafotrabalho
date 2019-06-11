@@ -44,7 +44,6 @@ public class Recomendacoes {
 			
 			
 			for(int i=0; i<this.cont; i++) {
-				System.out.println("Entrou");
 				if(i!=pos) {
 					try {
 						menorcaminho=grafo.menorCaminho(artista, artistas[i]);
