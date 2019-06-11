@@ -178,4 +178,7 @@ public class Recomendacoes {
 		}
 		return false;
 	}
+	public void visualizar() {
+		grafo.visualizarGrafo();
+	}
 }

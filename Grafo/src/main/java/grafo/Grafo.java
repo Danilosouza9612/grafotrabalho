@@ -43,5 +43,9 @@ public class Grafo {
 	public List<String> listaVizinhos(String artista){
 		return Graphs.neighborListOf(graph, artista);
 	}
+	public void visualizarGrafo() {
+		Visualizacao visualizacao = new Visualizacao();
+		visualizacao.visualizar(graph);
+	}
 	
 }

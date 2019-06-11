@@ -16,7 +16,8 @@ public class Main {
 		do {
 			System.out.println("1 - Consultar Artista");
 			System.out.println("2 - Ver Recomendações");
-			System.out.println("3 - Sair");
+			System.out.println("3 - Gerar Imagem do Grafo");
+			System.out.println("4 - Sair");
 			System.out.println("Escolha uma opção:");
 			opcao=l.nextInt();
 			l.nextLine();
@@ -44,11 +45,14 @@ public class Main {
 				}
 				break;
 			case 3:
+				recomendacoes.visualizar();
+				break;
+			case 4:
 				break;
 			default:
 				System.out.println("Opção Inválida");
 			}
-		}while(opcao!=3);
+		}while(opcao!=4);
 
 	}
 }
